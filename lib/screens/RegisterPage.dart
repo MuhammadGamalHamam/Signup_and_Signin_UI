@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'LoginPage.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,17 +12,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController t2 = TextEditingController();
   String value;
 
-  Future<void> kayitOl() async {
-    await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: t1.text, password: t2.text)
-        .then((user) {
-      FirebaseFirestore.instance.collection('User').doc(t1.text).set({
-        'Kullanıcı Eposta': t1.text,
-        'Kullanıcı Şifre': t2.text,
-      }).whenComplete(() => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen())));
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +84,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         Container(
                           width: 300,
                           child: TextFormField(
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'Please enter username';
-                              }
-                              return null;
-                            },
                             decoration: InputDecoration(
                               hintText: 'Enter Your Username',
                               border: OutlineInputBorder(
@@ -139,12 +121,6 @@ class _RegisterPageState extends State<RegisterPage> {
                           width: 300,
                           child: TextFormField(
                             controller: t1,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter email';
-                              }
-                              return null;
-                            },
                             decoration: InputDecoration(
                               hintText: 'Enter Your Email',
                               border: OutlineInputBorder(
@@ -184,12 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           child: TextFormField(
                             controller: t2,
                             obscureText: true,
-                            validator: (String value) {
-                              if (value.isEmpty) {
-                                return 'Please enter password';
-                              }
-                              return null;
-                            },
+                          
                             decoration: InputDecoration(
                               hintText: 'Enter Your Password',
                               border: OutlineInputBorder(
@@ -212,15 +183,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             color: Colors.blue,
-                            disabledColor: Colors.white,
+                            disabledColor: Colors.grey.shade200,
                             splashColor: Colors.blueAccent,
-                            onPressed: () {
-                              kayitOl();
-                            },
                             child: Text(
                               'Sign Up',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                               ),
