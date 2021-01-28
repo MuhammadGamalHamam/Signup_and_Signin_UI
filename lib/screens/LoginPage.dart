@@ -1,8 +1,5 @@
-import 'package:Signup_Signin_UI/screens/CreateProfile.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'RegisterPage.dart';
-import 'CreateProfile.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,16 +11,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController t1 = TextEditingController();
   TextEditingController t2 = TextEditingController();
 
-  girisYap() {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: t1.text, password: t2.text)
-        .then((user) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (_) => CreateProfile()),
-          (Route<dynamic> route) => false);
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,13 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 300,
                           child: TextFormField(
                             controller: t1,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your Email';
-                              }
-
-                              return null;
-                            },
                             decoration: InputDecoration(
                               hintText: 'Enter Your Email',
                               border: OutlineInputBorder(
@@ -141,13 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextFormField(
                             controller: t2,
                             obscureText: true,
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your Password';
-                              }
-
-                              return null;
-                            },
                             decoration: InputDecoration(
                               hintText: 'Enter Your Password',
                               border: OutlineInputBorder(
@@ -170,15 +144,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             color: Colors.blue,
-                            disabledColor: Colors.white,
+                            disabledColor: Colors.grey.shade200,
                             splashColor: Colors.blueAccent,
-                            onPressed: () {
-                              girisYap();
-                            },
                             child: Text(
                               'Sign In',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                               ),
